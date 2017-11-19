@@ -24,7 +24,7 @@ function! vaffle#file#delete(items) abort
     let flag = g:vaffle_force_delete
           \ ? 'rf'
           \ : (item.is_dir ? 'd' : '')
-    if delete(item.path, flag) < 0
+    if trashbin#delete(item.path) != 0
       call vaffle#util#echo_error(
             \ printf('Cannot delete file: ''%s''', item.basename))
     else
